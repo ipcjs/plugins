@@ -4,12 +4,14 @@
 
 import 'dart:async';
 import 'dart:convert' show json;
+import 'dart:io';
 
 import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider_linux/path_provider_linux.dart';
+import 'package:path_provider_windows/path_provider_windows.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 
 /// The Linux implementation of [SharedPreferencesStorePlatform].
@@ -18,6 +20,9 @@ import 'package:shared_preferences_platform_interface/shared_preferences_platfor
 class SharedPreferencesLinux extends SharedPreferencesStorePlatform {
   /// The default instance of [SharedPreferencesLinux] to use.
   static SharedPreferencesLinux instance = SharedPreferencesLinux();
+
+  static final _pathProvider =
+      Platform.isWindows ? PathProviderWindows() : PathProviderLinux();
 
   /// Local copy of preferences
   Map<String, Object> _cachedPreferences;
@@ -28,8 +33,7 @@ class SharedPreferencesLinux extends SharedPreferencesStorePlatform {
 
   /// Gets the file where the preferences are stored.
   Future<File> _getLocalDataFile() async {
-    final pathProvider = PathProviderLinux();
-    final directory = await pathProvider.getApplicationSupportPath();
+    final directory = await _pathProvider.getApplicationSupportPath();
     return fs.file(path.join(directory, 'shared_preferences.json'));
   }
 

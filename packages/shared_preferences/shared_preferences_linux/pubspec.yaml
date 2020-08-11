@@ -9,6 +9,9 @@ flutter:
       linux:
         dartPluginClass: SharedPreferencesLinux
         pluginClass: none
+      windows:
+        dartPluginClass: SharedPreferencesLinux
+        pluginClass: none
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -21,6 +24,7 @@ dependencies:
   meta: ^1.0.4
   path: ^1.6.4
   path_provider_linux: ^0.0.1
+  path_provider_windows: ^0.0.0
   shared_preferences_platform_interface: ^1.0.0
 
 dev_dependencies:
