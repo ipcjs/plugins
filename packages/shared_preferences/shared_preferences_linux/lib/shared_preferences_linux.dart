@@ -11,7 +11,8 @@ import 'package:file/local.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider_linux/path_provider_linux.dart';
-import 'package:path_provider_windows/path_provider_windows.dart';
+import 'path_provider_windows_mock.dart'
+    if (dart.library.ffi) 'package:path_provider_windows/path_provider_windows.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 
 /// The Linux implementation of [SharedPreferencesStorePlatform].
